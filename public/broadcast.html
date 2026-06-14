@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Broadcast</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Broadcaster</h1>
+
+    <p id="roomInfo"></p>
+
+    <video
+        id="localVideo"
+        autoplay
+        muted
+        playsinline
+        width="700">
+    </video>
+
+    <br><br>
+
+    <button id="startBtn">
+        Go Live
+    </button>
+
+</div>
+
+<script src="https://unpkg.com/livekit-client@1.15.13/dist/livekit-client.umd.js"></script>
+<script src="/js/broadcaster.js"></script>
+</body>
+</html>

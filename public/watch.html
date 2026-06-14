@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Join Hira Live</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🔴 Hira Live</h1>
+
+    <h3>Enter Passkey</h3>
+
+    <input
+        type="password"
+        id="passkey"
+        placeholder="Enter Passkey"
+    >
+
+    <br><br>
+
+    <button id="joinBtn">
+        Join Stream
+    </button>
+
+    <p id="error"></p>
+
+</div>
+
+<script>
+document
+  .getElementById("joinBtn")
+  .addEventListener("click", async () => {
+
+    const passkey =
+      document.getElementById("passkey").value;
+
+    const response = await fetch(
+      "/api/verify-passkey",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          passkey,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      window.location.href = "/stream.html";
+    } else {
+      document.getElementById("error").innerText =
+        "Wrong Passkey";
+    }
+  });
+</script>
+
+</body>
+</html>
