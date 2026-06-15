@@ -1,26 +1,218 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Hira Live</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rashi ❤️ Himanshu Wedding</title>
+
     <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            min-height:100vh;
+            overflow:hidden;
+            font-family: Georgia, serif;
+        }
+
+        .hero{
+
+            width:100%;
+            height:100vh;
+
+            background:
+            linear-gradient(
+                rgba(40,0,0,0.55),
+                rgba(20,0,0,0.75)
+            ),
+            url('/photos/couple1.jpg');
+
+            background-size:cover;
+            background-position:center;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+
+            color:white;
+            position:relative;
+        }
+
+        .overlay{
+            max-width:900px;
+            padding:20px;
+            animation:fadeIn 2s ease;
+        }
+
+        .welcome{
+
+            letter-spacing:4px;
+            color:#f7d98a;
+            font-size:18px;
+            margin-bottom:15px;
+        }
+
+        .title{
+
+            font-size:72px;
+            color:#f7d98a;
+            margin-bottom:10px;
+
+            text-shadow:
+            0 0 15px rgba(255,215,0,.6);
+        }
+
+        .heart{
+
+            font-size:42px;
+            color:#ffb6c1;
+            margin:10px 0;
+        }
+
+        .subtitle{
+
+            font-size:24px;
+            line-height:1.8;
+            max-width:700px;
+            margin:auto;
+        }
+
+        .invite{
+
+            margin-top:30px;
+
+            font-size:22px;
+            color:#fff5d6;
+        }
+
+        .enterBtn{
+
+            margin-top:40px;
+
+            padding:18px 45px;
+
+            font-size:20px;
+
+            border:none;
+
+            border-radius:50px;
+
+            cursor:pointer;
+
+            color:white;
+
+            background:
+            linear-gradient(
+                135deg,
+                #c99a2e,
+                #8f5e00
+            );
+
+            box-shadow:
+            0 0 25px rgba(255,215,0,.5);
+
+            transition:.3s;
+        }
+
+        .enterBtn:hover{
+
+            transform:scale(1.08);
+
+            box-shadow:
+            0 0 40px rgba(255,215,0,.9);
+        }
+
+        .date{
+
+            margin-top:30px;
+
+            font-size:18px;
+
+            color:#f7d98a;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(30px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        @media(max-width:768px){
+
+            .title{
+                font-size:46px;
+            }
+
+            .subtitle{
+                font-size:18px;
+            }
+
+            .welcome{
+                font-size:14px;
+            }
+
+            .enterBtn{
+                width:90%;
+            }
+        }
+
+    </style>
 </head>
+
 <body>
 
-<div class="container">
+<section class="hero">
 
-    <h1>🔴 Hira Live</h1>
+    <div class="overlay">
 
-    <h3>Live Channel: Hira</h3>
+        <div class="welcome">
+            TOGETHER WITH THEIR FAMILIES
+        </div>
 
-    <button id="broadcastBtn">
-        Start Broadcasting
-    </button>
+        <h1 class="title">
+            Rashi
+            ❤️
+            Himanshu
+        </h1>
 
-    <button id="watchBtn">
-        Watch Live
-    </button>
+        <p class="subtitle">
+            Request the honor of your virtual presence
+            as they begin a beautiful journey of love,
+            happiness and togetherness.
+        </p>
 
-</div>
+        <div class="invite">
+            You Are Cordially Invited
+        </div>
+
+        <div class="date">
+            Join Our Wedding Celebration Live
+        </div>
+
+        <button
+            class="enterBtn"
+            id="watchBtn">
+
+            Enter Celebration
+        </button>
+
+    </div>
+
+</section>
 
 <script src="/js/home.js"></script>
 

@@ -1,63 +1,291 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Join Hira Live</title>
-    <link rel="stylesheet" href="/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Rashi ❤️ Himanshu Wedding</title>
+
+<link rel="stylesheet" href="/css/style.css">
+
+<style>
+
+body{
+    background:#fff8f0;
+    color:#3b2f2f;
+    margin:0;
+    font-family:Georgia, serif;
+}
+
+.hero{
+
+    min-height:100vh;
+
+    background:
+    linear-gradient(
+      rgba(255,248,240,.82),
+      rgba(255,248,240,.92)
+    ),
+    url('/photos/couple2.jpg');
+
+    background-size:cover;
+    background-position:center;
+
+    text-align:center;
+
+    padding:60px 20px;
+}
+
+.coupleTitle{
+
+    color:#b8860b;
+
+    font-size:58px;
+
+    margin-top:30px;
+}
+
+.tagline{
+
+    font-size:22px;
+
+    max-width:800px;
+
+    margin:auto;
+
+    line-height:1.8;
+}
+
+.gallery{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:20px;
+
+    max-width:1200px;
+
+    margin:50px auto;
+
+    padding:20px;
+}
+
+.gallery img{
+
+    width:100%;
+
+    height:350px;
+
+    object-fit:cover;
+
+    border-radius:18px;
+
+    box-shadow:
+    0 8px 20px rgba(0,0,0,.15);
+
+    transition:.4s;
+}
+
+.gallery img:hover{
+
+    transform:scale(1.03);
+}
+
+.inviteCard{
+
+    max-width:700px;
+
+    margin:50px auto;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 8px 30px rgba(0,0,0,.12);
+}
+
+.inviteCard h2{
+
+    color:#b8860b;
+}
+
+.passkeyBox{
+
+    margin-top:40px;
+}
+
+.passkeyBox input{
+
+    width:280px;
+}
+
+.joinBtn{
+
+    background:
+    linear-gradient(
+      135deg,
+      #c99a2e,
+      #8f5e00
+    );
+
+    color:white;
+
+    font-size:18px;
+}
+
+#error{
+
+    color:red;
+    margin-top:15px;
+}
+
+@media(max-width:768px){
+
+    .coupleTitle{
+        font-size:38px;
+    }
+
+    .gallery img{
+        height:260px;
+    }
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="container">
+<section class="hero">
 
-    <h1>🔴 Hira Live</h1>
+<h1 class="coupleTitle">
+Rashi ❤️ Himanshu
+</h1>
 
-    <h3>Enter Passkey</h3>
+<p class="tagline">
 
-    <input
-        type="password"
-        id="passkey"
-        placeholder="Enter Passkey"
-    >
+Together with their families,
 
-    <br><br>
+request the honor of your presence
+as they begin a beautiful journey of
+love, trust and togetherness.
 
-    <button id="joinBtn">
-        Join Stream
-    </button>
+</p>
 
-    <p id="error"></p>
+<div class="gallery">
+
+<img src="/photos/couple1.jpg">
+<img src="/photos/couple2.jpg">
+<img src="/photos/bride1.jpg">
+<img src="/photos/bride2.jpg">
+<img src="/photos/bride3.jpg">
+<img src="/photos/bride4.jpg">
 
 </div>
 
+<div class="inviteCard">
+
+<h2>
+💍 Wedding Celebration
+</h2>
+
+<br>
+
+<p>
+
+Two Hearts.
+
+One Promise.
+
+One Beautiful Beginning.
+
+</p>
+
+<br>
+
+<p>
+
+Your blessings and presence
+mean the world to us.
+
+</p>
+
+<div class="passkeyBox">
+
+<h3>
+🔐 Family & Friends Access
+</h3>
+
+<input
+type="password"
+id="passkey"
+placeholder="Enter Wedding Passkey">
+
+<br><br>
+
+<button
+class="joinBtn"
+id="joinBtn">
+
+Join Live Ceremony
+
+</button>
+
+<p id="error"></p>
+
+</div>
+
+</div>
+
+</section>
+
 <script>
+
 document
-  .getElementById("joinBtn")
-  .addEventListener("click", async () => {
+.getElementById("joinBtn")
+.addEventListener("click", async () => {
 
-    const passkey =
-      document.getElementById("passkey").value;
+const passkey =
+document.getElementById("passkey").value;
 
-    const response = await fetch(
-      "/api/verify-passkey",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          passkey,
-        }),
-      }
-    );
+const response =
+await fetch(
+"/api/verify-passkey",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+passkey
+})
+}
+);
 
-    const data = await response.json();
+const data =
+await response.json();
 
-    if (data.success) {
-      window.location.href = "/stream.html";
-    } else {
-      document.getElementById("error").innerText =
-        "Wrong Passkey";
-    }
-  });
+if(data.success){
+
+window.location.href =
+"/stream.html";
+
+}else{
+
+document
+.getElementById("error")
+.innerText =
+"Incorrect Wedding Passkey";
+
+}
+
+});
+
 </script>
 
 </body>
