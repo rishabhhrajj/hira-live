@@ -22,24 +22,22 @@ html, body {
   height: 100%;
   overflow: hidden;
   font-family: 'Poppins', sans-serif;
+  background: black;
 }
 
-/* Background Slideshow */
+/* ── Background Slideshow (always running beneath everything) ── */
 
 .background {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -3;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
   pointer-events: none;
 }
 
 .slide {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   background-size: cover;
   background-position: center;
   opacity: 0;
@@ -47,12 +45,12 @@ html, body {
   animation: slideshow 24s infinite;
 }
 
-.slide:nth-child(1) { background-image: url('/photos/couple1.jpeg'); animation-delay: 0s; }
-.slide:nth-child(2) { background-image: url('/photos/couple2.jpeg'); animation-delay: 4s; }
-.slide:nth-child(3) { background-image: url('/photos/bride1.jpeg'); animation-delay: 8s; }
-.slide:nth-child(4) { background-image: url('/photos/bride2.jpeg'); animation-delay: 12s; }
-.slide:nth-child(5) { background-image: url('/photos/bride3.jpeg'); animation-delay: 16s; }
-.slide:nth-child(6) { background-image: url('/photos/bride4.jpeg'); animation-delay: 20s; }
+.slide:nth-child(1) { background-image: url('/photos/couple1.jpeg');  animation-delay: 0s;  }
+.slide:nth-child(2) { background-image: url('/photos/couple2.jpeg');  animation-delay: 4s;  }
+.slide:nth-child(3) { background-image: url('/photos/bride1.jpeg');   animation-delay: 8s;  }
+.slide:nth-child(4) { background-image: url('/photos/bride2.jpeg');   animation-delay: 12s; }
+.slide:nth-child(5) { background-image: url('/photos/bride3.jpeg');   animation-delay: 16s; }
+.slide:nth-child(6) { background-image: url('/photos/bride4.jpeg');   animation-delay: 20s; }
 
 @keyframes slideshow {
   0%   { opacity: 0; transform: scale(1.08); }
@@ -62,29 +60,248 @@ html, body {
   100% { opacity: 0; }
 }
 
-/* ✅ FIX 1: pointer-events: none added here — this was blocking all desktop clicks */
 .darkOverlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(8px);
-  z-index: -2;
-  pointer-events: none; /* ← THE KEY FIX */
+  z-index: 1;
+  pointer-events: none;
 }
 
-/* ✅ FIX 2: pointer-events: all explicitly set on interactive layers */
+/* ════════════════════════════════════════
+   CINEMATIC INTRO SCREEN
+   Sits above background, hidden after intro
+════════════════════════════════════════ */
+
+#cinematicIntro {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 50;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+
+  /* Intro fades out at 20s, card takes over */
+  animation: introExit 1.2s ease-in-out 20s forwards;
+}
+
+@keyframes introExit {
+  0%   { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
+/* ── Phase 1: cinematic photo reel ── */
+
+#photoReel {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+.reelPhoto {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+}
+
+/* Each photo: slow Ken Burns zoom + fade */
+.reelPhoto:nth-child(1) {
+  background-image: url('/photos/couple1.jpeg');
+  animation: reelFade 4s ease-in-out 1s forwards, kenBurns 4s ease-out 1s forwards;
+}
+.reelPhoto:nth-child(2) {
+  background-image: url('/photos/couple2.jpeg');
+  animation: reelFade 4s ease-in-out 4s forwards, kenBurns 4s ease-out 4s forwards;
+}
+.reelPhoto:nth-child(3) {
+  background-image: url('/photos/bride1.jpeg');
+  animation: reelFade 4s ease-in-out 7s forwards, kenBurns 4s ease-out 7s forwards;
+}
+.reelPhoto:nth-child(4) {
+  background-image: url('/photos/bride2.jpeg');
+  animation: reelFade 4s ease-in-out 10s forwards, kenBurns 4s ease-out 10s forwards;
+}
+.reelPhoto:nth-child(5) {
+  background-image: url('/photos/bride3.jpeg');
+  animation: reelFade 4s ease-in-out 13s forwards, kenBurns 4s ease-out 13s forwards;
+}
+.reelPhoto:nth-child(6) {
+  background-image: url('/photos/bride4.jpeg');
+  animation: reelFade 4s ease-in-out 16s forwards, kenBurns 4s ease-out 16s forwards;
+}
+
+@keyframes reelFade {
+  0%   { opacity: 0; }
+  15%  { opacity: 1; }
+  75%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes kenBurns {
+  0%   { transform: scale(1.0);  }
+  100% { transform: scale(1.12); }
+}
+
+/* ── Dark scrim over photo reel ── */
+
+#reelScrim {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.35) 0%,
+    rgba(0,0,0,0.15) 40%,
+    rgba(0,0,0,0.55) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── Phase 1: opening title (fades in on load) ── */
+
+#introTitle {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  animation: titleAppear 2.5s ease-out 0.3s both;
+}
+
+@keyframes titleAppear {
+  0%   { opacity: 0; transform: translateY(30px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+#introTitle h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(32px, 6vw, 72px);
+  color: #D4AF37;
+  text-shadow:
+    0 0 40px rgba(212, 175, 55, 0.9),
+    0 0 80px rgba(212, 175, 55, 0.4);
+  letter-spacing: 4px;
+  margin-bottom: 16px;
+  animation: titleGlow 3s ease-in-out 1s infinite alternate;
+}
+
+@keyframes titleGlow {
+  0%   { text-shadow: 0 0 30px rgba(212,175,55,0.7), 0 0 60px rgba(212,175,55,0.3); }
+  100% { text-shadow: 0 0 50px rgba(212,175,55,1.0), 0 0 100px rgba(212,175,55,0.6); }
+}
+
+#introTitle p {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(13px, 2vw, 18px);
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  animation: subtitleAppear 2s ease-out 1.5s both;
+}
+
+@keyframes subtitleAppear {
+  0%   { opacity: 0; letter-spacing: 12px; }
+  100% { opacity: 1; letter-spacing: 6px;  }
+}
+
+/* ── Divider line ── */
+
+#introDivider {
+  position: relative;
+  z-index: 10;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #D4AF37, transparent);
+  margin: 28px auto;
+  animation: lineGrow 1.8s ease-out 2s forwards;
+}
+
+@keyframes lineGrow {
+  0%   { width: 0; opacity: 0; }
+  100% { width: min(400px, 70vw); opacity: 1; }
+}
+
+/* ── Bottom tagline ── */
+
+#introTagline {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  text-align: center;
+  color: rgba(255,255,255,0.6);
+  font-size: clamp(11px, 1.5vw, 14px);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: taglineAppear 2s ease-out 3s both;
+  white-space: nowrap;
+}
+
+@keyframes taglineAppear {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0);     }
+}
+
+/* ── "Loading" dots ── */
+
+#introDots {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #D4AF37;
+  opacity: 0.3;
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1);   }
+  50%       { opacity: 1;   transform: scale(1.4); }
+}
+
+/* ════════════════════════════════════════
+   PASSKEY CARD
+   Hidden during intro, fades in after
+════════════════════════════════════════ */
+
 .container {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  position: relative;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
   z-index: 100;
-  pointer-events: all; /* ← added */
+  pointer-events: none;
+
+  /* Hidden until intro ends */
+  opacity: 0;
+  animation: cardReveal 1.5s ease-out 20.5s forwards;
+}
+
+@keyframes cardReveal {
+  0%   { opacity: 0; transform: translateY(24px); pointer-events: none; }
+  100% { opacity: 1; transform: translateY(0);    pointer-events: all;  }
 }
 
 .card {
@@ -100,7 +317,7 @@ html, body {
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
   position: relative;
   z-index: 101;
-  pointer-events: all; /* ← added */
+  pointer-events: all;
 }
 
 .title {
@@ -126,8 +343,8 @@ input {
   margin-top: 10px;
   position: relative;
   z-index: 999;
-  pointer-events: all;  /* ← added */
-  cursor: text;         /* ← added: forces text cursor on desktop */
+  pointer-events: all;
+  cursor: text;
 }
 
 button {
@@ -141,9 +358,9 @@ button {
   font-weight: 600;
   background: linear-gradient(135deg, #D4AF37, #9c6b00);
   color: white;
-  position: relative;   /* ← added */
-  z-index: 999;         /* ← added */
-  pointer-events: all;  /* ← added */
+  position: relative;
+  z-index: 999;
+  pointer-events: all;
 }
 
 #error {
@@ -159,7 +376,9 @@ button {
 
 @media (max-width: 768px) {
   .title { font-size: 32px; }
-  .card { padding: 30px; }
+  .card  { padding: 30px;   }
+  #introTitle h1 { letter-spacing: 2px; }
+  #introTagline  { white-space: normal; text-align: center; width: 80%; }
 }
 
 </style>
@@ -167,6 +386,7 @@ button {
 
 <body>
 
+<!-- ── Always-running background slideshow ── -->
 <div class="background">
   <div class="slide"></div>
   <div class="slide"></div>
@@ -178,6 +398,48 @@ button {
 
 <div class="darkOverlay"></div>
 
+<!-- ══════════════════════════════════════
+     CINEMATIC INTRO (visible for 20s)
+══════════════════════════════════════ -->
+<div id="cinematicIntro">
+
+  <!-- Photo reel with Ken Burns -->
+  <div id="photoReel">
+    <div class="reelPhoto"></div>
+    <div class="reelPhoto"></div>
+    <div class="reelPhoto"></div>
+    <div class="reelPhoto"></div>
+    <div class="reelPhoto"></div>
+    <div class="reelPhoto"></div>
+  </div>
+
+  <!-- Gradient scrim over photos -->
+  <div id="reelScrim"></div>
+
+  <!-- Centre title -->
+  <div id="introTitle">
+    <h1>Rashi ❤️ Himanshu</h1>
+    <div id="introDivider"></div>
+    <p>A Wedding Celebration</p>
+  </div>
+
+  <!-- Bottom tagline -->
+  <div id="introTagline">
+    Live Ceremony &nbsp;·&nbsp; Please have your passkey ready
+  </div>
+
+  <!-- Animated dots -->
+  <div id="introDots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     PASSKEY CARD (fades in after intro)
+══════════════════════════════════════ -->
 <div class="container">
   <div class="card">
 
@@ -209,23 +471,46 @@ button {
 
 <script>
 
-  window.onload = () => {
+  /* Focus input after intro ends (21s = card fully visible) */
+  setTimeout(() => {
     document.getElementById("passkey").focus();
-  };
+  }, 21000);
 
-  /* ✅ FIX 3: Stop any overlay stealing the mousedown event on desktop */
+  /* Desktop focus fix */
   document.getElementById("passkey").addEventListener("mousedown", function (e) {
     e.stopPropagation();
     setTimeout(() => this.focus(), 0);
   });
 
-  /* Also allow pressing Enter to submit */
+  /* Enter key submits */
   document.getElementById("passkey").addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-      document.getElementById("joinBtn").click();
-    }
+    if (e.key === "Enter") document.getElementById("joinBtn").click();
   });
 
+  /* Skip intro if user clicks/taps anywhere during intro */
+  document.getElementById("cinematicIntro").addEventListener("click", skipIntro);
+  document.getElementById("cinematicIntro").addEventListener("touchstart", skipIntro);
+
+  function skipIntro() {
+    const intro = document.getElementById("cinematicIntro");
+    const container = document.querySelector(".container");
+
+    intro.style.transition = "opacity 0.8s ease";
+    intro.style.opacity = "0";
+    intro.style.pointerEvents = "none";
+
+    container.style.animation = "none";
+    container.style.opacity = "1";
+    container.style.transform = "translateY(0)";
+    container.style.pointerEvents = "all";
+
+    setTimeout(() => {
+      intro.style.display = "none";
+      document.getElementById("passkey").focus();
+    }, 800);
+  }
+
+  /* API call */
   document.getElementById("joinBtn").addEventListener("click", async () => {
     const passkey = document.getElementById("passkey").value.trim();
 
