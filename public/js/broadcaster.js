@@ -7,15 +7,50 @@ if (
 }
 
 const roomName = "hira";
+loadCameras();
+
+async function loadCameras() {
+
+  const devices =
+    await navigator.mediaDevices.enumerateDevices();
+
+  const cameras =
+    devices.filter(
+      device => device.kind === "videoinput"
+    );
+
+  const select =
+    document.getElementById("cameraSelect");
+
+  select.innerHTML = "";
+
+  cameras.forEach(camera => {
+
+    const option =
+      document.createElement("option");
+
+    option.value = camera.deviceId;
+
+    option.text =
+      camera.label ||
+      `Camera ${select.length + 1}`;
+
+    select.appendChild(option);
+  });
+}
 
 function updateViewerCount(room) {
 
-  const count =
-    room.participants.size;
+  const viewerCount =
+    document.getElementById("viewerCount");
 
-  document.getElementById(
-    "viewerCount"
-  ).innerText = count;
+  if (!viewerCount) {
+    console.warn("viewerCount element not found");
+    return;
+  }
+
+  viewerCount.innerText =
+    room.participants.size;
 }
 
 document.getElementById("roomInfo").innerText =
@@ -67,20 +102,39 @@ async function startBroadcast() {
       }
     );
 
-    const tracks =
-      await LivekitClient.createLocalTracks({
-        audio: {
-          echoCancellation: true,
-          noiseSuppression: true,
+    const selectedCamera =
+  document.getElementById(
+    "cameraSelect"
+  ).value;
+
+const stream =
+  await navigator.mediaDevices
+    .getUserMedia({
+      video: {
+        deviceId: {
+          exact: selectedCamera
         },
-        video: {
-          resolution: {
-            width: 1920,
-            height: 1080,
-            frameRate: 30,
-          },
-        },
-      });
+        width: 1920,
+        height: 1080
+      },
+      audio: true
+    });
+
+const videoTrack =
+  new LivekitClient.LocalVideoTrack(
+    stream.getVideoTracks()[0]
+  );
+
+const audioTrack =
+  new LivekitClient.LocalAudioTrack(
+    stream.getAudioTracks()[0]
+  );
+
+await room.localParticipant
+  .publishTrack(videoTrack);
+
+await room.localParticipant
+  .publishTrack(audioTrack);
 
     for (const track of tracks) {
       await room.localParticipant.publishTrack(track);
