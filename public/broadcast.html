@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Broadcast</title>
+
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -12,12 +16,21 @@
 
     <p id="roomInfo"></p>
 
+    <p>
+        Status:
+        <span id="liveStatus">Offline</span>
+    </p>
+
+    <p>
+        Viewers:
+        <span id="viewerCount">0</span>
+    </p>
+
     <video
         id="localVideo"
         autoplay
         muted
-        playsinline
-        width="700">
+        playsinline>
     </video>
 
     <br><br>
@@ -30,5 +43,6 @@
 
 <script src="https://unpkg.com/livekit-client@1.15.13/dist/livekit-client.umd.js"></script>
 <script src="/js/broadcaster.js"></script>
+
 </body>
 </html>
