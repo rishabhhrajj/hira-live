@@ -38,6 +38,22 @@ async function joinRoom() {
           element.style.height = "100%";
           element.style.objectFit = "contain";
 
+          // Double tap fullscreen
+          element.addEventListener(
+            "dblclick",
+            () => {
+
+              if (
+                !document.fullscreenElement
+              ) {
+                element.requestFullscreen();
+              } else {
+                document.exitFullscreen();
+              }
+
+            }
+          );
+
           document
             .getElementById("videoContainer")
             .appendChild(element);
@@ -54,6 +70,22 @@ async function joinRoom() {
         element.style.width = "100%";
         element.style.height = "100%";
         element.style.objectFit = "contain";
+
+        // Double tap fullscreen
+        element.addEventListener(
+          "dblclick",
+          () => {
+
+            if (
+              !document.fullscreenElement
+            ) {
+              element.requestFullscreen();
+            } else {
+              document.exitFullscreen();
+            }
+
+          }
+        );
 
         document
           .getElementById("videoContainer")
