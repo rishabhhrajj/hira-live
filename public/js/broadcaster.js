@@ -7,36 +7,49 @@ if (
 }
 
 const roomName = "hira";
+
 loadCameras();
 
 async function loadCameras() {
+  try {
 
-  const devices =
-    await navigator.mediaDevices.enumerateDevices();
+    await navigator.mediaDevices.getUserMedia({
+      video: true
+    });
 
-  const cameras =
-    devices.filter(
-      device => device.kind === "videoinput"
+    const devices =
+      await navigator.mediaDevices.enumerateDevices();
+
+    const cameras =
+      devices.filter(
+        device => device.kind === "videoinput"
+      );
+
+    const select =
+      document.getElementById("cameraSelect");
+
+    select.innerHTML = "";
+
+    cameras.forEach(camera => {
+
+      const option =
+        document.createElement("option");
+
+      option.value = camera.deviceId;
+
+      option.text =
+        camera.label ||
+        `Camera ${select.length + 1}`;
+
+      select.appendChild(option);
+    });
+
+  } catch (err) {
+    console.error(
+      "Failed to load cameras",
+      err
     );
-
-  const select =
-    document.getElementById("cameraSelect");
-
-  select.innerHTML = "";
-
-  cameras.forEach(camera => {
-
-    const option =
-      document.createElement("option");
-
-    option.value = camera.deviceId;
-
-    option.text =
-      camera.label ||
-      `Camera ${select.length + 1}`;
-
-    select.appendChild(option);
-  });
+  }
 }
 
 function updateViewerCount(room) {
@@ -44,10 +57,7 @@ function updateViewerCount(room) {
   const viewerCount =
     document.getElementById("viewerCount");
 
-  if (!viewerCount) {
-    console.warn("viewerCount element not found");
-    return;
-  }
+  if (!viewerCount) return;
 
   viewerCount.innerText =
     room.participants.size;
@@ -61,112 +71,131 @@ document
   .addEventListener("click", startBroadcast);
 
 async function startBroadcast() {
+
   try {
 
-    const response = await fetch("/api/token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        room: roomName,
-        username: "broadcaster",
-        role: "broadcaster",
-      }),
-    });
+    const response = await fetch(
+      "/api/token",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+        body: JSON.stringify({
+          room: roomName,
+          username: "broadcaster",
+          role: "broadcaster",
+        }),
+      }
+    );
 
-    const data = await response.json();
+    const data =
+      await response.json();
 
-    const room = new LivekitClient.Room();
+    const room =
+      new LivekitClient.Room();
 
     await room.connect(
       "wss://livestream-gdprnnb0.livekit.cloud",
       data.token
     );
 
-    console.log("Connected to LiveKit");
+    console.log(
+      "Connected to LiveKit"
+    );
 
     updateViewerCount(room);
 
     room.on(
-      LivekitClient.RoomEvent.ParticipantConnected,
+      LivekitClient.RoomEvent
+        .ParticipantConnected,
       () => {
         updateViewerCount(room);
       }
     );
 
     room.on(
-      LivekitClient.RoomEvent.ParticipantDisconnected,
+      LivekitClient.RoomEvent
+        .ParticipantDisconnected,
       () => {
         updateViewerCount(room);
       }
     );
 
     const selectedCamera =
-  document.getElementById(
-    "cameraSelect"
-  ).value;
+      document.getElementById(
+        "cameraSelect"
+      ).value;
 
-const stream =
-  await navigator.mediaDevices
-    .getUserMedia({
-      video: {
-        deviceId: {
-          exact: selectedCamera
-        },
-        width: 1920,
-        height: 1080
-      },
-      audio: true
-    });
+    const stream =
+      await navigator.mediaDevices
+        .getUserMedia({
+          video: {
+            deviceId: {
+              exact:
+                selectedCamera,
+            },
+            width: 1920,
+            height: 1080,
+          },
+          audio: true,
+        });
 
-const videoTrack =
-  new LivekitClient.LocalVideoTrack(
-    stream.getVideoTracks()[0]
-  );
+    const videoTrack =
+      new LivekitClient.LocalVideoTrack(
+        stream.getVideoTracks()[0]
+      );
 
-const audioTrack =
-  new LivekitClient.LocalAudioTrack(
-    stream.getAudioTracks()[0]
-  );
+    const audioTrack =
+      new LivekitClient.LocalAudioTrack(
+        stream.getAudioTracks()[0]
+      );
 
-await room.localParticipant
-  .publishTrack(videoTrack);
+    await room.localParticipant
+      .publishTrack(videoTrack);
 
-await room.localParticipant
-  .publishTrack(audioTrack);
+    await room.localParticipant
+      .publishTrack(audioTrack);
 
-    for (const track of tracks) {
-      await room.localParticipant.publishTrack(track);
-    }
+    const videoElement =
+      videoTrack.attach();
 
-    const videoTrack = tracks.find(
-      (track) => track.kind === "video"
-    );
+    videoElement.id =
+      "localVideo";
 
-    if (!videoTrack) {
-      throw new Error("Video track not found");
-    }
+    videoElement.autoplay =
+      true;
 
-    const videoElement = videoTrack.attach();
+    videoElement.muted =
+      true;
 
-    videoElement.id = "localVideo";
-    videoElement.autoplay = true;
-    videoElement.muted = true;
-    videoElement.playsInline = true;
-    videoElement.style.width = "700px";
+    videoElement.playsInline =
+      true;
+
+    videoElement.style.width =
+      "700px";
 
     const oldVideo =
-      document.getElementById("localVideo");
+      document.getElementById(
+        "localVideo"
+      );
 
     if (oldVideo) {
-      oldVideo.replaceWith(videoElement);
+      oldVideo.replaceWith(
+        videoElement
+      );
     }
 
     alert("You are live!");
 
   } catch (err) {
-    console.error("Broadcast Error:", err);
+
+    console.error(
+      "Broadcast Error:",
+      err
+    );
+
     alert(
       `Failed to start stream: ${err.message}`
     );

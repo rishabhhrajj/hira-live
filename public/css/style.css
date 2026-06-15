@@ -17,6 +17,15 @@ input {
     border: none;
 }
 
+select {
+    padding: 10px;
+    width: 270px;
+    margin: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
 button {
     padding: 10px 20px;
     margin: 10px;
@@ -82,4 +91,19 @@ video {
 #viewerCount {
     font-weight: bold;
     color: #22c55e;
+}
+
+/* Live status */
+
+#liveStatus {
+    font-weight: bold;
+    color: #f59e0b;
+}
+
+/* Camera preview */
+
+#localVideo {
+    width: 700px;
+    max-width: 95%;
+    border-radius: 10px;
 }
