@@ -11,8 +11,10 @@ app.use(express.json());
 app.use(express.static("public"));
 
 const ROOM_NAME = "hira";
-const STREAM_PASSKEY = "HIRA2026";
+const STREAM_PASSKEY = process.env.STREAM_PASSKEY;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
+// Viewer passkey verification
 app.post("/api/verify-passkey", (req, res) => {
   const { passkey } = req.body;
 
@@ -23,6 +25,18 @@ app.post("/api/verify-passkey", (req, res) => {
   res.json({ success: false });
 });
 
+// Broadcaster admin login
+app.post("/api/admin-login", (req, res) => {
+  const { password } = req.body;
+
+  if (password === ADMIN_PASSWORD) {
+    return res.json({ success: true });
+  }
+
+  res.json({ success: false });
+});
+
+// Generate LiveKit token
 app.post("/api/token", async (req, res) => {
   const { username, role } = req.body;
 
@@ -57,5 +71,5 @@ app.post("/api/token", async (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

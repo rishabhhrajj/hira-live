@@ -3,7 +3,7 @@ document
   .addEventListener("click", () => {
 
     window.location.href =
-      "/broadcast.html";
+      "/admin.html";
   });
 
 document

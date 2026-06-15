@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Broadcaster Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🔒 Broadcaster Login</h1>
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Enter Admin Password"
+    >
+
+    <br><br>
+
+    <button id="loginBtn">
+        Login
+    </button>
+
+    <p id="error"></p>
+
+</div>
+
+<script>
+
+document
+.getElementById("loginBtn")
+.addEventListener("click", async () => {
+
+    const password =
+        document.getElementById("password").value;
+
+    const response =
+        await fetch("/api/admin-login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                password
+            })
+        });
+
+    const data = await response.json();
+
+    if (data.success) {
+
+        sessionStorage.setItem(
+            "admin",
+            "true"
+        );
+
+        window.location.href =
+            "/broadcast.html";
+
+    } else {
+
+        document.getElementById("error")
+        .innerText =
+        "Wrong Password";
+    }
+});
+
+</script>
+
+</body>
+</html>

@@ -1,3 +1,11 @@
+if (
+  sessionStorage.getItem("admin")
+  !== "true"
+) {
+  window.location.href =
+    "/admin.html";
+}
+
 const roomName = "hira";
 
 document.getElementById("roomInfo").innerText =
