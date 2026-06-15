@@ -32,116 +32,6 @@ overflow:hidden;
 font-family:'Poppins',sans-serif;
 }
 
-/* Initial Hero */
-
-.heroPhoto{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background-image:
-url('/photos/couple1.jpeg');
-
-background-size:cover;
-background-position:center;
-
-z-index:-5;
-
-animation:
-heroZoom 3s ease forwards;
-}
-
-.heroOverlay{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:
-rgba(0,0,0,.35);
-
-z-index:-4;
-}
-
-.heroTitle{
-
-position:fixed;
-
-top:50%;
-left:50%;
-
-transform:
-translate(-50%,-50%);
-
-font-family:'Cinzel',serif;
-
-font-size:72px;
-
-font-weight:700;
-
-color:#D4AF37;
-
-text-align:center;
-
-text-shadow:
-0 0 20px rgba(212,175,55,.8);
-
-z-index:50;
-
-animation:
-fadeInTitle 1s ease forwards,
-fadeOutTitle 1s ease forwards;
-
-animation-delay:
-0s,
-2.2s;
-}
-
-@keyframes fadeInTitle{
-
-from{
-opacity:0;
-transform:
-translate(-50%,-50%)
-scale(.9);
-}
-
-to{
-opacity:1;
-transform:
-translate(-50%,-50%)
-scale(1);
-}
-
-}
-
-@keyframes fadeOutTitle{
-
-to{
-opacity:0;
-}
-}
-
-@keyframes heroZoom{
-
-from{
-transform:scale(1.15);
-}
-
-to{
-transform:scale(1);
-}
-}
-
 /* Background Slideshow */
 
 .background{
@@ -155,6 +45,8 @@ width:100%;
 height:100%;
 
 z-index:-3;
+
+pointer-events:none;
 }
 
 .slide{
@@ -168,6 +60,8 @@ background-size:cover;
 background-position:center;
 
 opacity:0;
+
+pointer-events:none;
 
 animation:
 slideshow 24s infinite;
@@ -207,7 +101,7 @@ animation-delay:20s;
 
 0%{
 opacity:0;
-transform:scale(1.1);
+transform:scale(1.08);
 }
 
 8%{
@@ -238,15 +132,17 @@ width:100%;
 height:100%;
 
 background:
-rgba(0,0,0,.50);
+rgba(0,0,0,.55);
 
 backdrop-filter:
 blur(8px);
 
 z-index:-2;
+
+pointer-events:none;
 }
 
-/* Main Container */
+/* Main */
 
 .container{
 
@@ -258,9 +154,11 @@ justify-content:center;
 align-items:center;
 
 padding:20px;
-}
 
-/* Card Animation */
+position:relative;
+
+z-index:100;
+}
 
 .card{
 
@@ -287,30 +185,9 @@ color:white;
 box-shadow:
 0 8px 40px rgba(0,0,0,.25);
 
-opacity:0;
+position:relative;
 
-transform:
-translateY(80px);
-
-animation:
-showCard 1.2s ease forwards;
-
-animation-delay:3s;
-}
-
-@keyframes showCard{
-
-from{
-opacity:0;
-transform:
-translateY(80px);
-}
-
-to{
-opacity:1;
-transform:
-translateY(0);
-}
+z-index:101;
 }
 
 .title{
@@ -348,6 +225,10 @@ outline:none;
 font-size:16px;
 
 margin-top:10px;
+
+position:relative;
+
+z-index:999;
 }
 
 button{
@@ -396,10 +277,6 @@ opacity:.9;
 
 @media(max-width:768px){
 
-.heroTitle{
-font-size:42px;
-}
-
 .title{
 font-size:32px;
 }
@@ -415,14 +292,6 @@ padding:30px;
 </head>
 
 <body>
-
-<div class="heroPhoto"></div>
-
-<div class="heroOverlay"></div>
-
-<div class="heroTitle">
-Rashi ❤️ Himanshu
-</div>
 
 <div class="background">
 
@@ -448,7 +317,6 @@ Rashi ❤️ Himanshu
 <p class="subtitle">
 
 Together with their families,
-
 request the honor of your virtual presence
 as they begin a beautiful journey of
 love, trust and togetherness.
@@ -479,12 +347,23 @@ our special day ❤️
 
 <script>
 
+window.onload = () => {
+
+document
+.getElementById("passkey")
+.focus();
+
+};
+
 document
 .getElementById("joinBtn")
 .addEventListener("click", async () => {
 
 const passkey =
-document.getElementById("passkey").value.trim();
+document
+.getElementById("passkey")
+.value
+.trim();
 
 const response =
 await fetch(
