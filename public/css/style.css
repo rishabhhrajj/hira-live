@@ -1,26 +1,66 @@
-body{
+body {
     font-family: Arial, sans-serif;
-    background:#111827;
-    color:white;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    margin:0;
+    background: #111827;
+    color: white;
+    margin: 0;
 }
 
-.container{
-    text-align:center;
+.container {
+    text-align: center;
 }
 
-input{
-    padding:10px;
-    width:250px;
-    margin:10px;
+input {
+    padding: 10px;
+    width: 250px;
+    margin: 10px;
+    border-radius: 8px;
+    border: none;
 }
 
-button{
-    padding:10px 20px;
-    margin:10px;
-    cursor:pointer;
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+}
+
+video {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+/* Stream page only */
+
+#videoContainer {
+    width: 100%;
+    height: 100vh;
+    background: black;
+}
+
+#videoContainer video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Live badge */
+
+#liveBadge {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 999;
+    background: red;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* Viewer count */
+
+#viewerCount {
+    font-weight: bold;
+    color: #22c55e;
 }

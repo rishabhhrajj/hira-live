@@ -8,6 +8,16 @@ if (
 
 const roomName = "hira";
 
+function updateViewerCount(room) {
+
+  const count =
+    room.participants.size;
+
+  document.getElementById(
+    "viewerCount"
+  ).innerText = count;
+}
+
 document.getElementById("roomInfo").innerText =
   `Room: ${roomName}`;
 
@@ -41,10 +51,36 @@ async function startBroadcast() {
 
     console.log("Connected to LiveKit");
 
-    const tracks = await LivekitClient.createLocalTracks({
-      audio: true,
-      video: true,
-    });
+    updateViewerCount(room);
+
+    room.on(
+      LivekitClient.RoomEvent.ParticipantConnected,
+      () => {
+        updateViewerCount(room);
+      }
+    );
+
+    room.on(
+      LivekitClient.RoomEvent.ParticipantDisconnected,
+      () => {
+        updateViewerCount(room);
+      }
+    );
+
+    const tracks =
+      await LivekitClient.createLocalTracks({
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+        },
+        video: {
+          resolution: {
+            width: 1920,
+            height: 1080,
+            frameRate: 30,
+          },
+        },
+      });
 
     for (const track of tracks) {
       await room.localParticipant.publishTrack(track);
@@ -66,7 +102,8 @@ async function startBroadcast() {
     videoElement.playsInline = true;
     videoElement.style.width = "700px";
 
-    const oldVideo = document.getElementById("localVideo");
+    const oldVideo =
+      document.getElementById("localVideo");
 
     if (oldVideo) {
       oldVideo.replaceWith(videoElement);
@@ -76,6 +113,8 @@ async function startBroadcast() {
 
   } catch (err) {
     console.error("Broadcast Error:", err);
-    alert(`Failed to start stream: ${err.message}`);
+    alert(
+      `Failed to start stream: ${err.message}`
+    );
   }
 }

@@ -2,17 +2,52 @@
 <html>
 <head>
     <title>Hira Live Stream</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            overflow: hidden;
+        }
+
+        #videoContainer {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #videoContainer video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #liveBadge {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 999;
+            background: red;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
-
-    <h1>🔴 Hira Live</h1>
-
-    <div id="videoContainer"></div>
-
+<div id="liveBadge">
+    🔴 LIVE
 </div>
+
+<div id="videoContainer"></div>
 
 <script src="https://unpkg.com/livekit-client@1.15.13/dist/livekit-client.umd.js"></script>
 <script src="/js/viewer.js"></script>

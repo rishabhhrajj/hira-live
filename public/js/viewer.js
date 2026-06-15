@@ -31,9 +31,12 @@ async function joinRoom() {
 
         if (publication.track) {
 
-          const element = publication.track.attach();
+          const element =
+            publication.track.attach();
 
-          element.style.width = "700px";
+          element.style.width = "100%";
+          element.style.height = "100%";
+          element.style.objectFit = "cover";
 
           document
             .getElementById("videoContainer")
@@ -48,7 +51,9 @@ async function joinRoom() {
 
         const element = track.attach();
 
-        element.style.width = "700px";
+        element.style.width = "100%";
+        element.style.height = "100%";
+        element.style.objectFit = "cover";
 
         document
           .getElementById("videoContainer")
