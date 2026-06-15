@@ -1,402 +1,248 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>Rashi ❤️ Himanshu Wedding</title>
 
-<title>
-Rashi ❤️ Himanshu Wedding
-</title>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap"
-rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html,
-body{
-width:100%;
-height:100%;
-overflow:hidden;
-font-family:'Poppins',sans-serif;
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Background Slideshow */
 
-.background{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-z-index:-3;
-
-pointer-events:none;
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -3;
+  pointer-events: none;
 }
 
-.slide{
-
-position:absolute;
-
-width:100%;
-height:100%;
-
-background-size:cover;
-background-position:center;
-
-opacity:0;
-
-pointer-events:none;
-
-animation:
-slideshow 24s infinite;
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  pointer-events: none;
+  animation: slideshow 24s infinite;
 }
 
-.slide:nth-child(1){
-background-image:url('/photos/couple1.jpeg');
-animation-delay:0s;
+.slide:nth-child(1) { background-image: url('/photos/couple1.jpeg'); animation-delay: 0s; }
+.slide:nth-child(2) { background-image: url('/photos/couple2.jpeg'); animation-delay: 4s; }
+.slide:nth-child(3) { background-image: url('/photos/bride1.jpeg'); animation-delay: 8s; }
+.slide:nth-child(4) { background-image: url('/photos/bride2.jpeg'); animation-delay: 12s; }
+.slide:nth-child(5) { background-image: url('/photos/bride3.jpeg'); animation-delay: 16s; }
+.slide:nth-child(6) { background-image: url('/photos/bride4.jpeg'); animation-delay: 20s; }
+
+@keyframes slideshow {
+  0%   { opacity: 0; transform: scale(1.08); }
+  8%   { opacity: 1; }
+  24%  { opacity: 1; }
+  32%  { opacity: 0; }
+  100% { opacity: 0; }
 }
 
-.slide:nth-child(2){
-background-image:url('/photos/couple2.jpeg');
-animation-delay:4s;
+/* ✅ FIX 1: pointer-events: none added here — this was blocking all desktop clicks */
+.darkOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  z-index: -2;
+  pointer-events: none; /* ← THE KEY FIX */
 }
 
-.slide:nth-child(3){
-background-image:url('/photos/bride1.jpeg');
-animation-delay:8s;
+/* ✅ FIX 2: pointer-events: all explicitly set on interactive layers */
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  z-index: 100;
+  pointer-events: all; /* ← added */
 }
 
-.slide:nth-child(4){
-background-image:url('/photos/bride2.jpeg');
-animation-delay:12s;
+.card {
+  width: 100%;
+  max-width: 520px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 25px;
+  padding: 40px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 101;
+  pointer-events: all; /* ← added */
 }
 
-.slide:nth-child(5){
-background-image:url('/photos/bride3.jpeg');
-animation-delay:16s;
+.title {
+  font-family: 'Cinzel', serif;
+  font-size: 42px;
+  color: #D4AF37;
+  margin-bottom: 15px;
 }
 
-.slide:nth-child(6){
-background-image:url('/photos/bride4.jpeg');
-animation-delay:20s;
+.subtitle {
+  line-height: 1.8;
+  margin-bottom: 30px;
+  font-size: 16px;
 }
 
-@keyframes slideshow{
-
-0%{
-opacity:0;
-transform:scale(1.08);
+input {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  font-size: 16px;
+  margin-top: 10px;
+  position: relative;
+  z-index: 999;
+  pointer-events: all;  /* ← added */
+  cursor: text;         /* ← added: forces text cursor on desktop */
 }
 
-8%{
-opacity:1;
+button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #D4AF37, #9c6b00);
+  color: white;
+  position: relative;   /* ← added */
+  z-index: 999;         /* ← added */
+  pointer-events: all;  /* ← added */
 }
 
-24%{
-opacity:1;
+#error {
+  margin-top: 15px;
+  color: #ffb4b4;
 }
 
-32%{
-opacity:0;
+.footer {
+  margin-top: 25px;
+  font-size: 14px;
+  opacity: 0.9;
 }
 
-100%{
-opacity:0;
-}
-}
-
-.darkOverlay{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:
-rgba(0,0,0,.55);
-
-backdrop-filter:
-blur(8px);
-
-z-index:-2;
-
-pointer-events:none;
-}
-
-/* Main */
-
-.container{
-
-height:100vh;
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-padding:20px;
-
-position:relative;
-
-z-index:100;
-}
-
-.card{
-
-width:100%;
-max-width:520px;
-
-background:
-rgba(255,255,255,.15);
-
-backdrop-filter:
-blur(18px);
-
-border:
-1px solid rgba(255,255,255,.25);
-
-border-radius:25px;
-
-padding:40px;
-
-text-align:center;
-
-color:white;
-
-box-shadow:
-0 8px 40px rgba(0,0,0,.25);
-
-position:relative;
-
-z-index:101;
-}
-
-.title{
-
-font-family:'Cinzel',serif;
-
-font-size:42px;
-
-color:#D4AF37;
-
-margin-bottom:15px;
-}
-
-.subtitle{
-
-line-height:1.8;
-
-margin-bottom:30px;
-
-font-size:16px;
-}
-
-input{
-
-width:100%;
-
-padding:16px;
-
-border:none;
-
-border-radius:12px;
-
-outline:none;
-
-font-size:16px;
-
-margin-top:10px;
-
-position:relative;
-
-z-index:999;
-}
-
-button{
-
-width:100%;
-
-margin-top:20px;
-
-padding:16px;
-
-border:none;
-
-border-radius:12px;
-
-cursor:pointer;
-
-font-size:18px;
-
-font-weight:600;
-
-background:
-linear-gradient(
-135deg,
-#D4AF37,
-#9c6b00
-);
-
-color:white;
-}
-
-#error{
-
-margin-top:15px;
-
-color:#ffb4b4;
-}
-
-.footer{
-
-margin-top:25px;
-
-font-size:14px;
-
-opacity:.9;
-}
-
-@media(max-width:768px){
-
-.title{
-font-size:32px;
-}
-
-.card{
-padding:30px;
-}
-
+@media (max-width: 768px) {
+  .title { font-size: 32px; }
+  .card { padding: 30px; }
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="background">
-
-<div class="slide"></div>
-<div class="slide"></div>
-<div class="slide"></div>
-<div class="slide"></div>
-<div class="slide"></div>
-<div class="slide"></div>
-
+  <div class="slide"></div>
+  <div class="slide"></div>
+  <div class="slide"></div>
+  <div class="slide"></div>
+  <div class="slide"></div>
+  <div class="slide"></div>
 </div>
 
 <div class="darkOverlay"></div>
 
 <div class="container">
+  <div class="card">
 
-<div class="card">
+    <h1 class="title">Rashi ❤️ Himanshu</h1>
 
-<h1 class="title">
-Rashi ❤️ Himanshu
-</h1>
+    <p class="subtitle">
+      Together with their families,
+      request the honor of your virtual presence
+      as they begin a beautiful journey of
+      love, trust and togetherness.
+    </p>
 
-<p class="subtitle">
+    <input
+      type="password"
+      id="passkey"
+      placeholder="Enter Wedding Passkey"
+      autocomplete="current-password">
 
-Together with their families,
-request the honor of your virtual presence
-as they begin a beautiful journey of
-love, trust and togetherness.
+    <button id="joinBtn">Join Live Ceremony</button>
 
-</p>
+    <p id="error"></p>
 
-<input
-type="password"
-id="passkey"
-placeholder="Enter Wedding Passkey">
+    <div class="footer">
+      Thank you for celebrating our special day ❤️
+    </div>
 
-<button id="joinBtn">
-Join Live Ceremony
-</button>
-
-<p id="error"></p>
-
-<div class="footer">
-
-Thank you for celebrating
-our special day ❤️
-
-</div>
-
-</div>
-
+  </div>
 </div>
 
 <script>
 
-window.onload = () => {
+  window.onload = () => {
+    document.getElementById("passkey").focus();
+  };
 
-document
-.getElementById("passkey")
-.focus();
+  /* ✅ FIX 3: Stop any overlay stealing the mousedown event on desktop */
+  document.getElementById("passkey").addEventListener("mousedown", function (e) {
+    e.stopPropagation();
+    setTimeout(() => this.focus(), 0);
+  });
 
-};
+  /* Also allow pressing Enter to submit */
+  document.getElementById("passkey").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      document.getElementById("joinBtn").click();
+    }
+  });
 
-document
-.getElementById("joinBtn")
-.addEventListener("click", async () => {
+  document.getElementById("joinBtn").addEventListener("click", async () => {
+    const passkey = document.getElementById("passkey").value.trim();
 
-const passkey =
-document
-.getElementById("passkey")
-.value
-.trim();
+    const response = await fetch("/api/verify-passkey", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ passkey })
+    });
 
-const response =
-await fetch(
-"/api/verify-passkey",
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-passkey
-})
-}
-);
+    const data = await response.json();
 
-const data =
-await response.json();
-
-if(data.success){
-
-window.location.href =
-"/stream.html";
-
-}else{
-
-document
-.getElementById("error")
-.innerText =
-"Incorrect Wedding Passkey";
-
-}
-
-});
+    if (data.success) {
+      window.location.href = "/stream.html";
+    } else {
+      document.getElementById("error").innerText = "Incorrect Wedding Passkey";
+    }
+  });
 
 </script>
 
