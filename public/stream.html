@@ -3,291 +3,235 @@
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>Rashi ❤️ Himanshu Wedding Live</title>
 
-<title>
-Rashi ❤️ Himanshu Wedding Live
-</title>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap"
-rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html,
-body{
-
-width:100%;
-height:100%;
-
-overflow:hidden;
-
-background:black;
-
-font-family:'Poppins',sans-serif;
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: black;
+  font-family: 'Poppins', sans-serif;
 }
 
-#videoContainer{
+/* ── Video Container ── */
 
-width:100vw;
-height:100vh;
-
-background:black;
+#videoContainer {
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#videoContainer video{
+/* Default: LANDSCAPE — video fits width, letterboxed top/bottom */
+#videoContainer video {
+  display: block;
+  background: black;
+  transition: width 0.35s ease, height 0.35s ease, max-width 0.35s ease, max-height 0.35s ease;
 
-width:100%;
-height:100%;
-
-object-fit:contain;
-
-background:black;
+  /* Landscape mode */
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  object-fit: contain;
 }
 
-/* Live Badge */
-
-#liveBadge{
-
-position:fixed;
-
-top:20px;
-left:20px;
-
-z-index:999;
-
-background:#dc2626;
-
-color:white;
-
-padding:10px 18px;
-
-border-radius:30px;
-
-font-weight:600;
-
-box-shadow:
-0 0 20px rgba(255,0,0,.5);
+/* Portrait mode — pillarboxed left/right, full height */
+body.portrait #videoContainer video {
+  width: auto;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+  object-fit: contain;
 }
 
-/* Couple Name */
+/* ── Live Badge ── */
 
-#coupleName{
-
-position:fixed;
-
-top:20px;
-
-left:50%;
-
-transform:
-translateX(-50%);
-
-z-index:999;
-
-font-family:'Cinzel',serif;
-
-font-size:28px;
-
-font-weight:700;
-
-color:#D4AF37;
-
-text-shadow:
-0 0 15px rgba(212,175,55,.8);
+#liveBadge {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 999;
+  background: #dc2626;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-weight: 600;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
 }
 
-/* Fullscreen Button */
+/* ── Couple Name ── */
 
-#fullscreenBtn{
-
-position:fixed;
-
-top:20px;
-right:20px;
-
-z-index:999;
-
-background:
-rgba(0,0,0,.6);
-
-backdrop-filter:
-blur(8px);
-
-color:white;
-
-border:none;
-
-border-radius:12px;
-
-padding:12px 18px;
-
-cursor:pointer;
+#coupleName {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #D4AF37;
+  text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+  white-space: nowrap;
 }
 
-/* Bottom Message */
+/* ── Top-right button group ── */
 
-#bottomMessage{
-
-position:fixed;
-
-bottom:20px;
-
-left:50%;
-
-transform:
-translateX(-50%);
-
-z-index:999;
-
-background:
-rgba(0,0,0,.45);
-
-backdrop-filter:
-blur(10px);
-
-padding:14px 25px;
-
-border-radius:40px;
-
-color:white;
-
-text-align:center;
+#controls {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
-#bottomMessage span{
-
-color:#D4AF37;
-
-font-weight:600;
+#orientationBtn,
+#fullscreenBtn {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 18px;
+  cursor: pointer;
+  font-size: 15px;
+  white-space: nowrap;
+  transition: background 0.2s;
 }
 
-/* Decorative Border */
-
-.frame{
-
-position:fixed;
-
-top:10px;
-left:10px;
-
-width:
-calc(100% - 20px);
-
-height:
-calc(100% - 20px);
-
-border:
-2px solid rgba(212,175,55,.35);
-
-pointer-events:none;
-
-z-index:998;
+#orientationBtn:hover,
+#fullscreenBtn:hover {
+  background: rgba(212, 175, 55, 0.35);
 }
 
-/* Floating Petals */
+/* ── Orientation hint pill ── */
 
-.petals{
-
-position:fixed;
-
-width:100%;
-height:100%;
-
-pointer-events:none;
-
-overflow:hidden;
-
-z-index:997;
+#orientationHint {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  background: rgba(212, 175, 55, 0.18);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  color: #D4AF37;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
 }
 
-.petal{
-
-position:absolute;
-
-top:-50px;
-
-font-size:22px;
-
-animation:
-fall linear infinite;
+#orientationHint.hidden {
+  opacity: 0;
 }
 
-.petal:nth-child(1){
-left:10%;
-animation-duration:12s;
+/* ── Bottom Message ── */
+
+#bottomMessage {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  padding: 14px 25px;
+  border-radius: 40px;
+  color: white;
+  text-align: center;
 }
 
-.petal:nth-child(2){
-left:25%;
-animation-duration:16s;
+#bottomMessage span {
+  color: #D4AF37;
+  font-weight: 600;
 }
 
-.petal:nth-child(3){
-left:40%;
-animation-duration:14s;
+/* ── Decorative Border ── */
+
+.frame {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  border: 2px solid rgba(212, 175, 55, 0.35);
+  pointer-events: none;
+  z-index: 998;
 }
 
-.petal:nth-child(4){
-left:60%;
-animation-duration:18s;
+/* ── Floating Petals ── */
+
+.petals {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 997;
 }
 
-.petal:nth-child(5){
-left:75%;
-animation-duration:15s;
+.petal {
+  position: absolute;
+  top: -50px;
+  font-size: 22px;
+  animation: fall linear infinite;
 }
 
-.petal:nth-child(6){
-left:90%;
-animation-duration:13s;
+.petal:nth-child(1) { left: 10%; animation-duration: 12s; }
+.petal:nth-child(2) { left: 25%; animation-duration: 16s; }
+.petal:nth-child(3) { left: 40%; animation-duration: 14s; }
+.petal:nth-child(4) { left: 60%; animation-duration: 18s; }
+.petal:nth-child(5) { left: 75%; animation-duration: 15s; }
+.petal:nth-child(6) { left: 90%; animation-duration: 13s; }
+
+@keyframes fall {
+  0%   { transform: translateY(-50px) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(360deg); }
 }
 
-@keyframes fall{
+/* ── Mobile ── */
 
-0%{
-transform:
-translateY(-50px)
-rotate(0deg);
-}
-
-100%{
-transform:
-translateY(110vh)
-rotate(360deg);
-}
-
-}
-
-@media(max-width:768px){
-
-#coupleName{
-
-font-size:18px;
-
-top:70px;
-}
-
-#bottomMessage{
-
-width:90%;
-
-font-size:13px;
-}
-
+@media (max-width: 768px) {
+  #coupleName {
+    font-size: 16px;
+    top: 70px;
+  }
+  #bottomMessage {
+    width: 90%;
+    font-size: 13px;
+  }
+  #controls {
+    top: 12px;
+    right: 12px;
+    gap: 8px;
+  }
+  #orientationBtn,
+  #fullscreenBtn {
+    padding: 10px 13px;
+    font-size: 13px;
+  }
 }
 
 </style>
-
 </head>
 
 <body>
@@ -295,64 +239,97 @@ font-size:13px;
 <div class="frame"></div>
 
 <div class="petals">
-
-<div class="petal">🌸</div>
-<div class="petal">🌸</div>
-<div class="petal">🌸</div>
-<div class="petal">🌸</div>
-<div class="petal">🌸</div>
-<div class="petal">🌸</div>
-
+  <div class="petal">🌸</div>
+  <div class="petal">🌸</div>
+  <div class="petal">🌸</div>
+  <div class="petal">🌸</div>
+  <div class="petal">🌸</div>
+  <div class="petal">🌸</div>
 </div>
 
-<div id="liveBadge">
-🔴 LIVE
-</div>
+<div id="liveBadge">🔴 LIVE</div>
 
-<div id="coupleName">
-Rashi ❤️ Himanshu
-</div>
+<div id="coupleName">Rashi ❤️ Himanshu</div>
 
-<button id="fullscreenBtn">
-⛶ Fullscreen
-</button>
+<!-- ✅ NEW: both buttons grouped top-right -->
+<div id="controls">
+  <button id="orientationBtn">📱 Portrait</button>
+  <button id="fullscreenBtn">⛶ Fullscreen</button>
+</div>
 
 <div id="videoContainer"></div>
 
+<!-- ✅ NEW: orientation hint that fades out -->
+<div id="orientationHint">Switched to portrait mode — video pillarboxed, no cropping</div>
+
 <div id="bottomMessage">
-
-Thank you for joining
-our wedding celebration ❤️
-
-<br>
-
-<span>
-With Love,
-Rashi & Himanshu
-</span>
-
+  Thank you for joining our wedding celebration ❤️
+  <br>
+  <span>With Love, Rashi & Himanshu</span>
 </div>
 
 <script src="https://unpkg.com/livekit-client@1.15.13/dist/livekit-client.umd.js"></script>
-
 <script src="/js/viewer.js"></script>
 
 <script>
 
-document
-.getElementById("fullscreenBtn")
-.addEventListener("click", () => {
+  /* ── Orientation Toggle ── */
 
-const video =
-document.querySelector("video");
+  const orientationBtn  = document.getElementById("orientationBtn");
+  const orientationHint = document.getElementById("orientationHint");
+  let hintTimer = null;
 
-if(video){
+  // Start hint as hidden — only show on first toggle
+  orientationHint.classList.add("hidden");
 
-video.requestFullscreen();
+  function showHint(msg) {
+    orientationHint.textContent = msg;
+    orientationHint.classList.remove("hidden");
+    clearTimeout(hintTimer);
+    hintTimer = setTimeout(() => {
+      orientationHint.classList.add("hidden");
+    }, 2800);
+  }
 
-}
+  orientationBtn.addEventListener("click", () => {
+    const isPortrait = document.body.classList.toggle("portrait");
 
-});
+    if (isPortrait) {
+      orientationBtn.textContent = "🖥️ Landscape";
+      showHint("Portrait mode — video fits height, no cropping");
+    } else {
+      orientationBtn.textContent = "📱 Portrait";
+      showHint("Landscape mode — video fits width, no cropping");
+    }
+  });
+
+  /* ── Fullscreen ── */
+
+  document.getElementById("fullscreenBtn").addEventListener("click", () => {
+    const el = document.getElementById("videoContainer");
+    if (el.requestFullscreen)            el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen(); // Safari
+    else if (el.mozRequestFullScreen)    el.mozRequestFullScreen();    // Firefox
+  });
+
+  /* ── Auto-detect phone orientation change ──
+     When the user physically rotates their phone,
+     sync the toggle button label to match reality   */
+
+  if (window.screen && window.screen.orientation) {
+    window.screen.orientation.addEventListener("change", () => {
+      const type = window.screen.orientation.type;
+      const isLandscape = type.startsWith("landscape");
+
+      if (isLandscape && document.body.classList.contains("portrait")) {
+        document.body.classList.remove("portrait");
+        orientationBtn.textContent = "📱 Portrait";
+      } else if (!isLandscape && !document.body.classList.contains("portrait")) {
+        document.body.classList.add("portrait");
+        orientationBtn.textContent = "🖥️ Landscape";
+      }
+    });
+  }
 
 </script>
 
