@@ -484,7 +484,7 @@ document
 .addEventListener("click", async () => {
 
 const passkey =
-document.getElementById("passkey").value;
+document.getElementById("passkey").value.trim();
 
 const response =
 await fetch(
