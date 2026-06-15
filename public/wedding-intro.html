@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Rashi ❤️ Himanshu
+</title>
+
+<style>
+
+html,
+body{
+
+margin:0;
+padding:0;
+width:100%;
+height:100%;
+overflow:hidden;
+
+background:black;
+}
+
+.slide{
+
+position:absolute;
+
+width:100%;
+height:100%;
+
+background-size:cover;
+background-position:center;
+
+opacity:0;
+
+animation:
+fade 3s linear forwards;
+}
+
+.slide1{
+
+background-image:
+url('/photos/couple1.jpeg');
+
+animation-delay:0s;
+}
+
+.slide2{
+
+background-image:
+url('/photos/couple2.jpeg');
+
+animation-delay:.5s;
+}
+
+.slide3{
+
+background-image:
+url('/photos/bride1.jpeg');
+
+animation-delay:1s;
+}
+
+.slide4{
+
+background-image:
+url('/photos/bride2.jpeg');
+
+animation-delay:1.5s;
+}
+
+.slide5{
+
+background-image:
+url('/photos/bride3.jpeg');
+
+animation-delay:2s;
+}
+
+.slide6{
+
+background-image:
+url('/photos/bride4.jpeg');
+
+animation-delay:2.5s;
+}
+
+.overlay{
+
+position:absolute;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:
+rgba(0,0,0,.35);
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+z-index:99;
+}
+
+.title{
+
+font-size:70px;
+
+color:#D4AF37;
+
+font-family:
+'Cinzel', serif;
+
+text-shadow:
+0 0 20px rgba(212,175,55,.8);
+
+text-align:center;
+}
+
+@keyframes fade{
+
+0%{
+opacity:0;
+transform:scale(1.08);
+}
+
+20%{
+opacity:1;
+}
+
+100%{
+opacity:1;
+transform:scale(1);
+}
+}
+
+</style>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="slide slide1"></div>
+<div class="slide slide2"></div>
+<div class="slide slide3"></div>
+<div class="slide slide4"></div>
+<div class="slide slide5"></div>
+<div class="slide slide6"></div>
+
+<div class="overlay">
+
+<div class="title">
+
+Rashi ❤️ Himanshu
+
+</div>
+
+</div>
+
+<script>
+
+setTimeout(() => {
+
+window.location.href =
+"/watch.html";
+
+}, 3000);
+
+</script>
+
+</body>
+</html>
